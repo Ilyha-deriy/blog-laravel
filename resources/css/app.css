@@ -3,3 +3,13 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+.backgrond-image 
+{
+    background-image: url('https://cdn.pixabay.com/photo/2020/04/30/15/34/code-5113374_960_720.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 600px;
+}
