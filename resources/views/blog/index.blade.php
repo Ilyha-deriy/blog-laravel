@@ -58,6 +58,16 @@
                 font-extrabold py-4 px-8 rounded-3xl">
                     Keep reading
                 </a>
+
+                @if (isset(Auth::user()->id) && Auth::user()->id ==
+                $post->user_id)
+                        <span class="float-right">
+                            <a href="/blog/{{ $post->slug }}/edit" class="text-gray-700 italic
+                                hover:text-gray-900 pb-1 border-b-2">
+                                Edit
+                            </a>
+                        </span>
+                @endif
             </div>
         </div>
 
