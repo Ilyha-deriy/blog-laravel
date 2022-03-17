@@ -15,7 +15,7 @@
             {{ session()->get('message') }}
         </p>
     </div>
-    
+
 @endif
 
 @if (Auth::check())
@@ -26,7 +26,7 @@
             Create a post
         </a>
     </div>
-    
+
 @endif
 
 @foreach ($posts as $post)
@@ -78,10 +78,14 @@
                             </form>
                         </span>
                 @endif
+
             </div>
         </div>
 
 @endforeach
+
+{{ $posts->links() }}
+
 
 
 @endsection

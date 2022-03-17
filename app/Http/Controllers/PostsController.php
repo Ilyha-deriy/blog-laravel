@@ -20,7 +20,7 @@ class PostsController extends Controller
     {
         $post = Post::all();
         return view('blog.index')
-        ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
+        ->with('posts', Post::orderBy('updated_at', 'DESC')->paginate(5));
     }
 
     /**
@@ -47,7 +47,7 @@ class PostsController extends Controller
             'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        $newImageName= uniqid() . '-' . $request->title . '.' . 
+        $newImageName= uniqid() . '-' . $request->title . '.' .
         $request->image->extension();
 
         $request->image->move(public_path('images'), $newImageName);
@@ -56,7 +56,7 @@ class PostsController extends Controller
         Post::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-            'slug' => SlugService::createSlug(Post::class, 'slug', 
+            'slug' => SlugService::createSlug(Post::class, 'slug',
             $request->title),
             'image_path' => $newImageName,
             'user_id' => auth()->user()->id
@@ -109,7 +109,7 @@ class PostsController extends Controller
         ->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-            'slug' => SlugService::createSlug(Post::class, 'slug', 
+            'slug' => SlugService::createSlug(Post::class, 'slug',
             $request->title),
             'user_id' => auth()->user()->id
         ]);
