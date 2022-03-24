@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\PostsController;
 Route::get('/', [PagesController::class, 'index']);
 
 Route::resource('/blog', PostsController::class);
+
+Route::post('/blog/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 Auth::routes();
 

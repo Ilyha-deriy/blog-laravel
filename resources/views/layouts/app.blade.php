@@ -11,11 +11,11 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
+<body class="h-screen antialiased leading-none font-sans">
     <div id="app">
         <header class="bg-gray-800 py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
@@ -49,11 +49,11 @@
 
     <div>
         @yield('content')
-    </div>   
-    
+    </div>
+
     <div>
         @include('layouts.footer')
-    </div>    
+    </div>
 
     </div>
 </body>
