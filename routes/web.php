@@ -25,6 +25,8 @@ Route::post('/blog/{post:slug}/comments', [PostCommentsController::class, 'store
 
 Route::get('/blog/create', [PostsController::class, 'create'])->middleware('admin');
 
+Route::get('/blog', [PostsController::class, 'search']);
+
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

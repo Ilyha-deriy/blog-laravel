@@ -7,6 +7,14 @@
             Blog Posts
         </h1>
     </div>
+
+    <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-8 py-2 mt-7">
+        <form method="GET" action="#">
+            <input type="text" name="search" placeholder="Find something"
+            class="bg-transparent placeholder-black font-semibold text-sm"
+            value="{{ request('search') }}">
+        </form>
+    </div>
 </div>
 
 @if (session()->has('message'))

@@ -9,7 +9,7 @@ class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
     }
     /**
      * Display a listing of the resource.
@@ -18,10 +18,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $posts = Post::all();
+
         return view('blog.index')
         ->with('posts', Post::orderBy('updated_at', 'DESC')->paginate(5));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -31,6 +33,21 @@ class PostsController extends Controller
     public function create()
     {
         return view('blog.create');
+    }
+
+    public function search()
+    {
+        $posts= Post::latest();
+
+        if (request('search')) {
+            $posts
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('description', 'like', '%' . request('search') . '%');
+        }
+
+        return view('blog.index', [
+            'posts' => $posts->paginate(5)
+        ]);
     }
 
     /**
