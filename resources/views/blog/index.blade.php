@@ -27,7 +27,8 @@
 
 @endif
 
-@if (auth()->user()->name == 'user');
+@if (!Auth::check())
+@elseif (auth()->user()->name == 'user');
     <div class="pt-15 w-4/5 m-auto">
         <a href="/blog/create"
         class="bg-blue-500 uppercase bg-transparent text-gray-100
@@ -35,7 +36,6 @@
             Create a post
         </a>
     </div>
-
 @endif
 
 <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b
