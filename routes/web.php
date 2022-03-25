@@ -23,6 +23,8 @@ Route::resource('/blog', PostsController::class);
 
 Route::post('/blog/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
+Route::get('/blog/create', [PostsController::class, 'create'])->middleware('admin');
+
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

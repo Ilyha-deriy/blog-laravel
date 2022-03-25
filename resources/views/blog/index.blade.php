@@ -18,7 +18,16 @@
 
 @endif
 
-@if (Auth::check())
+@if (session()->has('error_message'))
+    <div class="w-4/5 m-auto mt-10 pl-2">
+        <p class="w-2/6 mb-4 text-gray-50 bg-red-500 rounded-2xl py-4">
+            {{ session()->get('error_message') }}
+        </p>
+    </div>
+
+@endif
+
+@if (auth()->user()->name == 'user');
     <div class="pt-15 w-4/5 m-auto">
         <a href="/blog/create"
         class="bg-blue-500 uppercase bg-transparent text-gray-100
