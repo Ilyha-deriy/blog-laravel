@@ -50,7 +50,7 @@
 border-gray-200">
 @foreach ($posts as $post)
             <div>
-                <img src="{{asset('images/' . $post->image_path)}}" alt="">
+                <img src="{{asset('images/' . $post->image_path)}}" class="rounded-xl" alt="">
             </div>
             <div>
                 <h2 class="text-gray-700 font-bold text-5xl pb-4">

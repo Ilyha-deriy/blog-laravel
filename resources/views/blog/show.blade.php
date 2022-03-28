@@ -11,7 +11,7 @@
 
 <div class="w-4/5 m-auto p-20">
     <div>
-        <img src="{{asset('images/' . $post->image_path)}}" alt="">
+        <img src="{{asset('images/' . $post->image_path)}}" alt="" class="mx-auto mb-20 rounded-xl" width="700">
     </div>
     <span class="text-gray-500">
             By <span class="font-bold italic text-gray-800">

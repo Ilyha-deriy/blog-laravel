@@ -120,16 +120,38 @@ class PostsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'image' => 'mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        Post::where('slug', $slug)
-        ->update([
+        if (isset($request['image'])) {
+            $newImageName= uniqid() . '-' . $request->title . '.' .
+            $request->image->extension();
+
+            $request->image->move(public_path('images'), $newImageName);
+
+            Post::where('slug', $slug)
+            ->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'slug' => SlugService::createSlug(Post::class, 'slug',
             $request->title),
+            'image_path' => $newImageName,
             'user_id' => auth()->user()->id
         ]);
+        }
+
+        if (empty($request['image'])){
+            Post::where('slug', $slug)
+            ->update([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'slug' => SlugService::createSlug(Post::class, 'slug',
+                $request->title),
+                'user_id' => auth()->user()->id
+            ]);
+        }
+
+
 
         return redirect('/blog')
         ->with('message', 'Post has been updated!');
