@@ -27,6 +27,9 @@ Route::get('/blog/create', [PostsController::class, 'create'])->middleware('admi
 
 Route::get('/blog', [PostsController::class, 'search']);
 
+Route::get('/blog/{post:slug}', [PostsController::class, 'show']);
+
+
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

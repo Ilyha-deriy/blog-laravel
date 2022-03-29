@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Cookie;
 class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search', 'read']]);
     }
     /**
      * Display a listing of the resource.
@@ -18,6 +19,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+
         $posts = Post::all();
 
         return view('blog.index')
@@ -33,6 +35,13 @@ class PostsController extends Controller
     public function create()
     {
         return view('blog.create');
+    }
+
+    public function read(Post $posts)
+    {
+		$posts->incrementReadCount();
+
+        return view('post.show', compact($posts));
     }
 
     public function search()
@@ -92,8 +101,13 @@ class PostsController extends Controller
      */
     public function show($slug)
     {
-        return view('blog.show')
-        ->with('post', Post::where('slug', $slug)->first());
+
+        $post = Post::where('slug', $slug)->first();
+        $post->increment('reads');
+        $post->save();
+        return view('blog.show', compact('post'));
+        //return view('blog.show')
+        //->with('post', Post::where('slug', $slug)->first());
     }
 
     /**

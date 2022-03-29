@@ -64,6 +64,10 @@ border-gray-200">
                     strtotime($post->updated_at)) }}
                 </span>
 
+                <div class="text-gray-500 mt-4">
+                    Viewed: {{ $post->reads }} times
+                </div>
+
 
 
                 <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
