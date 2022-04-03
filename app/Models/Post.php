@@ -12,7 +12,7 @@ class Post extends Model
     use Sluggable;
 
     protected $fillable= ['title', 'slug', 'description',
-    'image_path', 'user_id', 'reads'];
+    'image_path', 'user_id', 'reads', 'category_id'];
 
     public function user()
     {
@@ -31,5 +31,10 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

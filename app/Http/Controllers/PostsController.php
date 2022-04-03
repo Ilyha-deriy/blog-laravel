@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cookie;
 class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'search', 'read']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search', 'reads']]);
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +22,9 @@ class PostsController extends Controller
     public function index()
     {
 
-        $posts = Post::all();
+        $posts = Post::latest()->get();
+
+        $categories= Category::all();
 
         return view('blog.index')
         ->with('posts', Post::orderBy('updated_at', 'DESC')->paginate(5));
@@ -55,9 +59,22 @@ class PostsController extends Controller
         }
 
         return view('blog.index', [
-            'posts' => $posts->paginate(5)
+            'posts' => $posts->paginate(5),
+            'categories' => Category::all()
         ]);
     }
+
+    public function category(Category $category)
+    {
+
+
+        return view('blog.index', [
+          'posts' => $category->posts()->paginate(5),
+           'currentCategory' => $category,
+          'categories' => Category::all()
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -70,7 +87,8 @@ class PostsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 
         $newImageName= uniqid() . '-' . $request->title . '.' .
@@ -85,7 +103,8 @@ class PostsController extends Controller
             'slug' => SlugService::createSlug(Post::class, 'slug',
             $request->title),
             'image_path' => $newImageName,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'category_id' => $request->input('category_id')
         ]);
 
         return redirect('/blog')

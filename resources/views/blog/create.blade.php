@@ -54,10 +54,23 @@
         </label>
         </div>
 
+        <div class="mt-15">
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="category_id">
+                Category
+            </label>
+
+            <select name="category_id" id="category_id">
+                @foreach (\App\Models\Category::all() as $category)
+                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
+                @endforeach
+            </select>
+
+        </div>
+
         <button
         type="submit"
         class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg
-        font-extrabold py-4 px-8 rounded-3xl">
+        font-extrabold py-4 px-8 rounded-3xl hover:bg-blue-600">
             Submit A Post
         </button>
     </form>

@@ -30,6 +30,9 @@ Route::get('/blog', [PostsController::class, 'search']);
 Route::get('/blog/{post:slug}', [PostsController::class, 'show']);
 
 
+Route::get('/blog/category/{category:slug}', [PostsController::class, 'category']);
+
+
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
