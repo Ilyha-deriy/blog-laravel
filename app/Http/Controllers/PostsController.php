@@ -153,7 +153,8 @@ class PostsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image' => 'mimes:jpg,png,jpeg|max:5048'
+            'image' => 'mimes:jpg,png,jpeg|max:5048',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 
         if (isset($request['image'])) {
@@ -169,7 +170,8 @@ class PostsController extends Controller
             'slug' => SlugService::createSlug(Post::class, 'slug',
             $request->title),
             'image_path' => $newImageName,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'category_id' => $request->input('category_id')
         ]);
         }
 
@@ -180,7 +182,8 @@ class PostsController extends Controller
                 'description' => $request->input('description'),
                 'slug' => SlugService::createSlug(Post::class, 'slug',
                 $request->title),
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
+                'category_id' => $request->input('category_id')
             ]);
         }
 

@@ -56,6 +56,19 @@
             <img src="{{asset('images/' . $post->image_path)}}" alt="" class="rounded-xl ml-6" width="100">
         </div>
 
+        <div class="mt-15">
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="category_id">
+                Category
+            </label>
+
+            <select name="category_id" id="category_id">
+                @foreach (\App\Models\Category::all() as $category)
+                <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
+                @endforeach
+            </select>
+
+        </div>
+
 
         <button
         type="submit"
