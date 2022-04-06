@@ -8,11 +8,13 @@ use App\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\User;
+
 class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'search', 'reads']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search', 'reads', 'category']]);
     }
     /**
      * Display a listing of the resource.

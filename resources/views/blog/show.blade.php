@@ -31,7 +31,7 @@
             @csrf
 
             <header class="flex items-center">
-                <img src="https://i.pravatar.cc/60?u={{ auth()->id() }}" alt="" width="60" height="60" class="rounded-xl">
+                <img src="{{asset('images/avatars/'.Auth::user()->image)}}" alt="" width="60" height="60" class="rounded-xl">
 
                 <h2 class="ml-4">Want to participate?</h2>
             </header>
@@ -58,9 +58,10 @@
 
         @foreach ($post->comments as $comment)
 
+
         <article class="flex bg-gray-100 border border-gray-200 p-6 rounded-xl space-x-4">
             <div class="flex-shrink-0">
-                <img src="https://i.pravatar.cc/60?u={{ $comment->author->id }}" alt="" width="60" height="60" class="rounded-xl">
+                <img src="{{asset('images/avatars/'. $comment->author->image)}}" alt="" width="60" height="60" class="rounded-xl">
             </div>
 
             <div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -64,10 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(request()->hasFile('image')) {
+            $newImageName= uniqid() . '-' . request()->name . '.' .
+            request()->file('image')->extension();
+            request()->file('image')->move(public_path('images/avatars'), $newImageName);
+            $user->update(['image'=>$newImageName]);
+        }
+
+        return $user;
+
     }
 }

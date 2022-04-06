@@ -34,7 +34,9 @@
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     @else
-                        <span>{{ Auth::user()->name }}</span>
+                        <span>{{ Auth::user()->name }}
+                            <img src="{{asset('images/avatars/'.Auth::user()->image)}}" alt="profile_image" class="inline object-cover w-8 h-8 rounded-full">
+                        </span>
 
                         <a href="{{ route('logout') }}"
                            class="no-underline hover:underline"
