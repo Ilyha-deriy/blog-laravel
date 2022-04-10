@@ -9,6 +9,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\User;
+use App\Models\Comment;
 
 class PostsController extends Controller
 {

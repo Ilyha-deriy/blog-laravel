@@ -23,11 +23,13 @@ Route::resource('/blog', PostsController::class);
 
 Route::post('/blog/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
+
 Route::get('/blog/create', [PostsController::class, 'create'])->middleware('admin');
 
 Route::get('/blog', [PostsController::class, 'search']);
 
 Route::get('/blog/{post:slug}', [PostsController::class, 'show']);
+
 
 
 Route::get('/blog/category/{category:slug}', [PostsController::class, 'category']);
