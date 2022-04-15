@@ -44,12 +44,6 @@ class PostsController extends Controller
         return view('blog.create');
     }
 
-    public function read(Post $posts)
-    {
-		$posts->incrementReadCount();
-
-        return view('post.show', compact($posts));
-    }
 
     public function search()
     {

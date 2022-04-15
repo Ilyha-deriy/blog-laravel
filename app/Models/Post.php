@@ -24,10 +24,6 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function replies()
-    {
-        return $this->hasMany(Replie::class);
-    }
 
     public function sluggable(): array
     {

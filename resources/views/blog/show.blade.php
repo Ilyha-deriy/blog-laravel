@@ -59,7 +59,6 @@
         @foreach ($post->comments as $comment)
         @if (is_null($comment->parent_id))
 
-
         <article class="flex bg-gray-100 border border-gray-200 p-6 rounded-xl space-x-4">
             <div class="flex-shrink-0">
                 <img src="{{asset('images/avatars/'. $comment->author->image)}}" alt="" class="inline object-cover w-16 h-16 mr-2 rounded-full">
@@ -79,30 +78,52 @@
                     {{ $comment->body }}
                 </p>
 
+                @auth
+                <div x-data="{ show: false }" class="mt-3 xl:w-96">
+                    <button @click="show = ! show" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
+                        Reply
+                    </button>
+                    <form x-show="show" method="POST" action="/blog/{{  $post->slug  }}/comments">
+                        @csrf
+                        <textarea name="body"
+                                class="
+                                    form-control
+                                    block
+                                    w-full
+                                    py-1.5
+                                    text-base
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out
+                                    mt-2
+                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                "
+                                rows="3"
+                                placeholder="Your message"
+                                required
+                                ></textarea>
+                                <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
+
+
+                                @error('body')
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
+                                @enderror
+                        <div class="flex justify-end my-2">
+                            <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
+                                Post a reply
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                @endauth
             </div>
 
         </article>
 
-        @auth
-        <form  method="POST" action="/blog/{{ $post->slug }}/comments" class="border border-y-4 mb-10 border-gray-200 ml-40 p-6 rounded-xl">
-            @csrf
-
-            <div>
-                <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" rows="2" placeholder="Please, share your thougts" required></textarea>
-                <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
-
-                @error('body')
-                    <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="flex justify-end pt-6  border-t mt-10 border-gray-200">
-                <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
-                    Reply
-                </button>
-            </div>
-        </form>
-        @endauth
 
             @endif
 
@@ -127,28 +148,52 @@
                     {{ $reply->body }}
                 </p>
 
-            </div>
-            </article>
-            @auth
-            <form  method="POST" action="/blog/{{ $post->slug }}/comments" class="border border-y-4 mb-10 border-gray-200 ml-40 p-6 rounded-xl">
-                @csrf
-
-                <div>
-                    <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" rows="2" placeholder="Please, share your thougts" required></textarea>
-                    <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
-
-                    @error('body')
-                        <span class="text-xs text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="flex justify-end pt-6  border-t mt-10 border-gray-200">
-                    <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
+                @auth
+                <div x-data="{ show: false }" class="mt-3 xl:w-96">
+                    <button @click="show = ! show" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
                         Reply
                     </button>
+                    <form x-show="show" method="POST" action="/blog/{{  $post->slug  }}/comments">
+                        @csrf
+                        <textarea name="body"
+                                class="
+                                    form-control
+                                    block
+                                    w-full
+                                    py-1.5
+                                    text-base
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out
+                                    mt-2
+                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                "
+                                id="exampleFormControlTextarea1"
+                                rows="3"
+                                placeholder="Your message"
+                                required
+                                ></textarea>
+                                <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
+
+                                @error('body')
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
+                                @enderror
+                        <div class="flex justify-end my-2">
+                            <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
+                                Post a reply
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            @endauth
+                @endauth
+
+            </div>
+            </article>
+
 
         @endforeach
         @endif

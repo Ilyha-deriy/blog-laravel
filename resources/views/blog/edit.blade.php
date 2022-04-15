@@ -42,7 +42,7 @@
         outline-none">{{ $post->description }}</textarea>
 
         <div class="flex bg-gray-lighter pt-15 mt-6">
-            <label class="w-44 flex flex-col items-centere px-2 py-3
+            <label class="w-44 flex flex-col items-center px-2 py-3
             bg-white-rounded-lg shadow-lg tracking-wide uppercase border
             border-blue cursor-pointer">
                 <span class="mt-2 text-base leadong-normal">
