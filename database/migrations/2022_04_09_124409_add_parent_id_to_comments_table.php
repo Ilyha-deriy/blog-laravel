@@ -16,7 +16,7 @@ class AddParentIdToCommentsTable extends Migration
         Schema::table('comments', function (Blueprint $table) {
             $table->unsignedBigInteger('parent_id')->nullable();
 
-            $table->foreign('parent_id')->references('id')->on('comments');
+            $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
         });
     }
 

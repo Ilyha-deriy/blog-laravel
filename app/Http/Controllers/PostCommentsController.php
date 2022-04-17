@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use DB;
 
 class PostCommentsController extends Controller
 {
@@ -26,4 +27,13 @@ class PostCommentsController extends Controller
         return back();
 
     }
+
+    public function destroy($id)
+    {
+
+        Comment::where('id',$id)->delete();
+
+        return back();
+    }
+
 }

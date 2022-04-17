@@ -78,6 +78,19 @@
                     {{ $comment->body }}
                 </p>
 
+                @if (isset(Auth::user()->id) && auth()->user()->name == 'user')
+                <div class="mt-3 xl:w-96">
+                <form method="POST" action="/{{ $comment->id }}">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="bg-red-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-red-600">
+                        Delete
+                    </button>
+                </form>
+                </div>
+                @endif
+
                 @auth
                 <div x-data="{ show: false }" class="mt-3 xl:w-96">
                     <button @click="show = ! show" class="bg-blue-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-blue-600">
@@ -147,6 +160,19 @@
                 <p>
                     {{ $reply->body }}
                 </p>
+
+                @if (isset(Auth::user()->id) && auth()->user()->name == 'user')
+                <div class="mt-3 xl:w-96">
+                    <form method="POST" action="/{{ $reply->id }}">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="bg-red-500 text-white uppercase font-semibold text-xs  py-2 px-10 rounded-2xl hover:bg-red-600">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                @endif
 
                 @auth
                 <div x-data="{ show: false }" class="mt-3 xl:w-96">

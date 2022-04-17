@@ -65,8 +65,7 @@
 
 @endif
 
-@if (!Auth::check())
-@elseif (auth()->user()->name == 'user');
+@if (isset(Auth::user()->id) && auth()->user()->name == 'user')
     <div class="pt-15 w-4/5 m-auto">
         <a href="/blog/create"
         class="bg-blue-500 uppercase bg-transparent text-gray-100
